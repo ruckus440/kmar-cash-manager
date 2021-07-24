@@ -18,7 +18,7 @@ namespace CashManager.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
-            string userItems = _repository.GetAllUsers();
+            var userItems = _repository.GetAllUsers();
 
             return Ok(userItems);
         }

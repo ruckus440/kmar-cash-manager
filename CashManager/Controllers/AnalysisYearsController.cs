@@ -10,7 +10,7 @@ namespace CashManager.Controllers
 {
     [Route("api/years")]
     [ApiController]
-    public class AnalysisYearController : ControllerBase
+    public class AnalysisYearsController : ControllerBase
     {
         private readonly AnalysisYearRepository _repository = new AnalysisYearRepository();
 
@@ -29,8 +29,6 @@ namespace CashManager.Controllers
 
             return Ok(year);
         }
-
-
 
         [HttpPost]
         public ActionResult<AnalysisYear> CreateAnalysisYear([FromBody]AnalysisYear year)
