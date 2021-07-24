@@ -15,7 +15,6 @@ namespace CashManager.Controllers
     {
         private readonly UserRepository _repository = new UserRepository();
 
-
         [HttpGet]
         public ActionResult<IEnumerable<User>> GetAllUsers()
         {
@@ -45,7 +44,7 @@ namespace CashManager.Controllers
         {
             int i = _repository.UpdateUser(id, user);
 
-            return GenerateResponse(id, "updated");            
+            return GenerateResponse(i, "updated");            
         }
 
         [HttpDelete("{id}")]
@@ -53,7 +52,7 @@ namespace CashManager.Controllers
         {
             int i = _repository.DeleteUser(id);
 
-            return GenerateResponse(id, "deleted");
+            return GenerateResponse(i, "deleted");
         }
 
         public ActionResult GenerateResponse(int i, string action)

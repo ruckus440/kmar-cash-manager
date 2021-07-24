@@ -60,7 +60,7 @@ namespace CashManager.Data
         public int CreateUser(User user)
         {       
             SqlCommand command = new SqlCommand($@"INSERT Users (UserName, DisplayName, Password, Status)
-                                                   VALUES('{user.UserName}', '{user.DisplayName}', '{user.Password}', '{user.Status}')", connection);
+                                                   VALUES ('{user.UserName}', '{user.DisplayName}', '{user.Password}', '{user.Status}')", connection);
 
             connection.Open();
             int i = command.ExecuteNonQuery();
