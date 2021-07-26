@@ -1,4 +1,9 @@
-﻿using CashManager.Models;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+using CashManager.Models;
 using CashManager.Data;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -9,6 +14,17 @@ using System.Threading.Tasks;
 
 namespace CashManager.Controllers
 {
+    /// <summary>
+    /// This class is a controller for the "api/users" endpoint.
+    ///     The HTTP request body is expected in the following JSON:
+    ///     {
+    ///         "UserName": "<username>",
+    ///         "DisplayName": "<displayname>",
+    ///         "Password": "<password>",
+    ///         "Status": "<status>"
+    ///     }
+
+    /// </summary>
     [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase

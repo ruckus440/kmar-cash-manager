@@ -1,4 +1,10 @@
-﻿using CashManager.Models;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+
+using CashManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -9,11 +15,13 @@ using System.Threading.Tasks;
 
 namespace CashManager.Data
 {
+    /// <summary>
+    /// This class is a repository of methods used to assist in the maintenance of user logins.
+    /// I've assumed that MD5 encryption will suffice.
+    /// </summary>
     public class LoginRepository
-    {
-        SqlConnection connection = new SqlConnection(Connection.ConnectionString);
-
-        static string salt = "mysalt";
+    {        
+        SqlConnection connection = new SqlConnection(Connection.ConnectionString);        
 
         public byte[] GenerateHashedPassword(string rawPassword)
         {
@@ -24,20 +32,10 @@ namespace CashManager.Data
             tempHash = new MD5CryptoServiceProvider().ComputeHash(tempSource);
 
             return tempHash;
-
-
-            //string rawSalted = rawPassword + salt;
-
-            //using (SHA256 sha256 = SHA256.Create())
-            //{
-            //    byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(rawSalted));
-
-            //    return bytes;
-            //}
         }
 
         public bool CompareHashedPasswords(Login login)
-        {
+        {            
             string query = $"SELECT Password, Status FROM Users WHERE UserName = '{login.UserName}'";
 
             SqlCommand command = new SqlCommand(query, connection);
@@ -45,23 +43,9 @@ namespace CashManager.Data
             byte[] storedHash = (byte[])command.ExecuteScalar();
             connection.Close();
 
-            bool valid = false;
-
             byte[] enteredHash = GenerateHashedPassword(login.Password);
 
-            if (enteredHash.Length == storedHash.Length)
-            {
-                int i = 0;
-
-                while ((i < enteredHash.Length) && enteredHash[i] == storedHash[i])
-                {
-                    i += 1;
-                }
-                if (i == enteredHash.Length)
-                {
-                    valid =  true;
-                }
-            }
+            bool valid = storedHash.SequenceEqual(enteredHash);
 
             return valid;
         }

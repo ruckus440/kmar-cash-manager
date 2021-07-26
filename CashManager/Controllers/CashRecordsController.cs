@@ -1,4 +1,9 @@
-﻿using CashManager.Data;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+using CashManager.Data;
 using CashManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +13,20 @@ using System.Threading.Tasks;
 
 namespace CashManager.Controllers
 {
+    /// <summary>
+    /// This class is a controller for the "api/records" endpoint.
+    /// I've assumed the datetime is needed in the format shown below.
+    /// The HTTP request body is expected in the following JSON:
+    /// {
+    ///    "AnalysisYearId": <integer>,
+    ///    "TransactionCodeId": <integer>,
+    ///    "TransactionDate": "<YYYY-MM-DDT00:00:00>", 
+    ///    "Description": "<description>",
+    ///    "Amount": <decimal>,
+    ///    "LastUpdated": "<YYYY-MM-DDT00:00:00>",
+    ///    "LastUpdatedBy": "<string>"   
+    /// }
+    /// </summary>
     [Route("api/records")]
     [ApiController]
     public class CashRecordsController : ControllerBase

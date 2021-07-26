@@ -1,4 +1,9 @@
-﻿using CashManager.Data;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+using CashManager.Data;
 using CashManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +13,16 @@ using System.Threading.Tasks;
 
 namespace CashManager.Controllers
 {
+    /// <summary>
+    /// This is a controller for the "api/years" endpoint.
+    /// I've assumed the datetime is needed in the format shown below.
+    /// The HTTP request body is expected in the following JSON:
+    /// {
+    ///    "UserId": <integer>,
+    ///    "Year": <integer>,
+    ///    "BubbleUpDate": "<YYYY-MM-DDT00:00:00>" 
+    /// }
+    /// </summary>
     [Route("api/years")]
     [ApiController]
     public class AnalysisYearsController : ControllerBase

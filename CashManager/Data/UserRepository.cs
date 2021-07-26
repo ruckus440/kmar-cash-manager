@@ -1,4 +1,10 @@
-﻿using CashManager.Models;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+
+using CashManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,7 +18,13 @@ using System.Text.Json;
 
 namespace CashManager.Data
 {
-    public class UserRepository
+    /// <summary>
+    /// This class is a repository of methods used in the mantenaince of User database records.
+    /// Assumptions I've made with this class, as well as the other database repo classes, include...
+    ///     All CRUD operations are necessary.
+    ///     Reading a User by ID is also necessary.
+    /// </summary>
+public class UserRepository
     {        
         SqlConnection connection = new SqlConnection(Connection.ConnectionString);
 

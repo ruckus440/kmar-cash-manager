@@ -1,4 +1,9 @@
-﻿using CashManager.Models;
+﻿/*
+ * Author: Mike Ruckert
+ * Date: 7/26/2021
+ * Submitted for consideration of the position of Programmer and Systems Developer at K-MAR-105 Association.
+ */
+using CashManager.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace CashManager.Data
 {
+    /// <summary>
+    /// This class is a repository of methods used for maintenance of cash records in the database.
+    /// In the database, I have assumed the AnalysisYearId is a foreign key to AnalysisYear.
+    /// </summary>
     public class CashRecordRepository
     {
         SqlConnection connection = new SqlConnection(Connection.ConnectionString);
