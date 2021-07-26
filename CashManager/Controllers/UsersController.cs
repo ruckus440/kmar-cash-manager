@@ -32,7 +32,7 @@ namespace CashManager.Controllers
         }
 
         [HttpPost]
-        public ActionResult<User> CreateUser([FromBody]User user)
+        public ActionResult<User> CreateUser([FromBody]User user)        
         {            
             int i = _repository.CreateUser(user);
 

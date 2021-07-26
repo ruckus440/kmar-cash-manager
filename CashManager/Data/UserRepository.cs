@@ -8,20 +8,17 @@ using Newtonsoft.Json;
 using System.Data;
 using Newtonsoft.Json.Linq;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Text.Json;
 
 namespace CashManager.Data
 {
     public class UserRepository
-    {
-        //private readonly string connectionString = "server=DESKTOP-NQP9L02\\localhost4444; database=CashManager;User ID=CashManagerAPI;Password=password;";
+    {        
         SqlConnection connection = new SqlConnection(Connection.ConnectionString);
-        
 
         public string GetAllUsers()
-        {            
+        {
             string query = "SELECT * FROM Users";
-
 
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(query, connection);
             DataTable dataTable = new DataTable();
@@ -58,15 +55,21 @@ namespace CashManager.Data
         }
 
         public int CreateUser(User user)
-        {       
-            SqlCommand command = new SqlCommand($@"INSERT Users (UserName, DisplayName, Password, Status)
-                                                   VALUES ('{user.UserName}', '{user.DisplayName}', '{user.Password}', '{user.Status}')", connection);
+        {
+            LoginRepository loginRepo = new LoginRepository();
+            var password = loginRepo.GenerateHashedPassword(user.Password);
 
-            connection.Open();
-            int i = command.ExecuteNonQuery();
-            connection.Close();
+            using (SqlCommand command = new SqlCommand($@"INSERT Users (UserName, DisplayName, Password, Status)
+                                                          VALUES ('{user.UserName}', '{user.DisplayName}', @pword, '{user.Status}')", connection))
+            {
+                SqlParameter param = command.Parameters.Add("@pword", SqlDbType.Binary);
+                param.Value = password;
 
-            return i;           
+                connection.Open();
+                int i = command.ExecuteNonQuery();
+                connection.Close();
+                return i;
+            }
         }
 
         public int UpdateUser(int id, User user)
@@ -93,7 +96,5 @@ namespace CashManager.Data
 
             return i;
         }
-
-
     }
 }
